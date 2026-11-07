@@ -1,0 +1,33 @@
+name: Organizar repositórios
+
+on:
+  schedule:
+    - cron: "17 3 * * *"   # todos os dias
+  workflow_dispatch:        # botão "Run workflow"
+  push:
+    branches: [main, master]
+    paths: ["scripts/**", ".github/workflows/organizar.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  organizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Classificar e atualizar README
+        env:
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ORGANIZER_TOKEN: ${{ secrets.ORGANIZER_TOKEN }}
+        run: python scripts/organizar.py
+      - name: Guardar alterações
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || (git commit -m "Atualizar lista de projetos por categoria" && git push)
