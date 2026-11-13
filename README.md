@@ -30,7 +30,7 @@
 
 | Projeto | Descrição | Linguagem |
 |---|---|---|
-| [hpedru99](https://github.com/hpedru99/hpedru99) | Config files for my GitHub profile. | — |
+| [hpedru99](https://github.com/hpedru99/hpedru99) | Config files for my GitHub profile. | Python |
 
 <sub>Atualizado automaticamente por `scripts/organizar.py`. Para mudar a categoria de um projeto, adiciona-lhe o tópico `categoria-<nome>`.</sub>
 
